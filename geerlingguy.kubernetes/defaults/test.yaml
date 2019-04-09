@@ -1,0 +1,28 @@
+- hosts: k8s-cluster
+  serial: "100%"
+  any_errors_fatal: true
+  vars:
+     - ipnames:
+        '182.10.1.77': 'master'
+        '182.10.1.78': 'node78'
+        '182.10.1.79': 'node79'
+  roles:
+    - hostnames
+    - repo-epel
+    - docker
+
+- hosts: k8s-master
+  vars:
+    kubernetes_allow_pods_on_master: True
+    kubernetes_role: master
+    kubernetes_version: '1.14'
+    kubernetes_version_rhel_package: '1.14.1'
+    kubernetes_apiserver_advertise_address: 182.10.1.77
+  roles:
+    - geerlingguy.kubernetes
+
+- hosts: k8s-node
+  vars:
+    kubernetes_role: node
+  roles:
+    - geerlingguy.kubernetes

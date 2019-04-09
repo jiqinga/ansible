@@ -1,0 +1,7 @@
+---
+- name: bootstrap | Turn off the swapoff.
+  shell: swapoff -a && sed -ri '/^[^#]*swap/s@^@#@' /etc/fstab
+
+- name: Join node to Kubernetes master
+  script: /root/node-join.sh
+  tags: ['skip_ansible_lint']
