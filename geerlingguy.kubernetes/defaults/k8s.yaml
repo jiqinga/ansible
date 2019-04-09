@@ -15,7 +15,6 @@
   vars:
     kubernetes_allow_pods_on_master: True
     kubernetes_role: master
-    kubernetes_version: '1.14'                   #  '1.12'       '1.13'       '1.14'
     kubernetes_version_rhel_package: '1.14.0'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
     kubernetes_apiserver_advertise_address: 182.10.1.77
   roles:
