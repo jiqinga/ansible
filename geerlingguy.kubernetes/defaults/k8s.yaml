@@ -24,5 +24,6 @@
 - hosts: k8s-node
   vars:
     kubernetes_role: node
+    kubernetes_version_rhel_package: '1.14.0'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
   roles:
     - geerlingguy.kubernetes
