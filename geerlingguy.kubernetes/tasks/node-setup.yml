@@ -15,11 +15,11 @@
     - { 'name': 'net.bridge.bridge-nf-call-iptables', 'value': 1}
 
 - name: bootstrap | Ensure ntp packages are installed.
-  yum: name=ntp state=installed
+  shell: yum -y install ntp && systemctl stop ntpd
+
 
 - name: bootstrap | Update time on server.
   shell: ntpdate ntp1.aliyun.com && hwclock --systohc
-  ignore_errors: true
 
 - name: bootstrap | Restart ntpd service.
   service: "name=ntpd state=restarted"
@@ -27,6 +27,6 @@
 - name: bootstrap | Turn off the swapoff.
   shell: swapoff -a && sed -ri '/^[^#]*swap/s@^@#@' /etc/fstab
 
-#- name: Join node to Kubernetes master
-#  script: /root/node-join.sh
-#  tags: ['skip_ansible_lint']
+- name: Join node to Kubernetes master
+  script: /root/node-join.sh
+  tags: ['skip_ansible_lint']
