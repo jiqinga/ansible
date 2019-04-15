@@ -1,0 +1,20 @@
+- hosts: 182.10.1.78
+  serial: "100%"
+  any_errors_fatal: true
+  vars:
+     - ipnames:
+        '182.10.1.77': 'master'
+        '182.10.1.78': 'node78'
+        '182.10.1.79': 'node79'
+  roles:
+    - hostnames
+    - repo-epel
+    - docker
+
+
+- hosts: 182.10.1.78
+  vars:
+    kubernetes_role: node
+    kubernetes_version_rhel_package: '1.14.0'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
+  roles:
+    - geerlingguy.kubernetes
