@@ -14,27 +14,14 @@
     - { 'name': 'net.bridge.bridge-nf-call-ip6tables', 'value': 1}
     - { 'name': 'net.bridge.bridge-nf-call-iptables', 'value': 1}
 
-- name: bootstrap | Change nofile limits.
-  lineinfile: dest=/etc/security/limits.conf line={{ item }}
-  with_items:
-    - '* - nofile 165535'
-    - '* soft nofile 165535'
-    - '* hard nofile 165535'
-    - '* soft memlock unlimited'
-    - '* hard memlock unlimited'
+- name: bootstrap | Ensure ntp packages are installed.
+  yum: name=ntp
 
-  - name: bootstrap | Ensure ntp packages are installed.
-    yum: name=ntp state=installed
+- name: bootstrap | Update time on server.
+  shell: ntpdate ntp1.aliyun.com && hwclock --systohc
 
-  - name: bootstrap | Update time on server.
-    shell: ntpdate ntp1.aliyun.com && hwclock --systohc
-    ignore_errors: true
-
-  - name: bootstrap | Change ntpd server on ntp.conf.
-    template: src=ntp/ntp.conf dest=/etc/ backup=yes
-
-  - name: bootstrap | Restart ntpd service.
-    service: "name=ntpd state=restarted"
+- name: bootstrap | Restart ntpd service.
+  service: "name=ntpd state=restarted"
 
 - name: bootstrap | Turn off the swap.
   shell: swapoff -a && sed -ri '/^[^#]*swap/s@^@#@' /etc/fstab
