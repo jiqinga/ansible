@@ -158,7 +158,7 @@ metadata:
   namespace: kube-system
 spec:
   ports:
-    - port: 8443
+    - port: 443
       targetPort: 8443
   selector:
     k8s-app: kubernetes-dashboard
