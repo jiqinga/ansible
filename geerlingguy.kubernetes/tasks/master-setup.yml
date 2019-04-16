@@ -55,3 +55,7 @@
 
 - name: create dashboard_adminuser
   shell: "kubectl apply -f {{ kubernetes_dashboard_adminuser }}"
+
+- name: create metrics-server
+  shell: "kubectl  apply -f /etc/ansible/roles/geerlingguy.kubernetes/templates/metrics-server/1.8+/"
+
