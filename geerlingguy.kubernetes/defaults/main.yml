@@ -19,6 +19,7 @@ kubernetes_kubeadm_init_extra_opts: ""
 kubernetes_allow_pods_on_master: true
 kubernetes_enable_web_ui: true
 kubernetes_web_ui_manifest_file: https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/kubernetes-dashboard.yaml
+kubernetes_dashboard_adminuser: https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/dashboard-adminuser.yaml
 
 kubernetes_pod_network_cidr: '10.244.0.0/16'
 kubernetes_apiserver_advertise_address: ''
