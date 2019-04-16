@@ -15,3 +15,5 @@ expect "Password:"   {send "$passwd\n"}
 expect "Password:"   {send "$passwd\n"}
 expect "Password:"   {send "exit"}
 EOF
+rm -rf kubecfg.crt
+rm -rf kubecfg.key
