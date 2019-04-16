@@ -61,3 +61,6 @@
   when:
     - kubernetes_enable_web_ui
     - kubernetes_dashboard_service is failed
+
+- name: create dashboard_adminuser
+  shell: "kubectl apply -f {{ kubernetes_dashboard_adminuser }}"
