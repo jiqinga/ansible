@@ -56,6 +56,8 @@
 - name: create dashboard_adminuser
   shell: "kubectl apply -f {{ kubernetes_dashboard_adminuser }}"
 
-- name: create metrics-server
-  shell: "kubectl  apply -f /etc/ansible/roles/geerlingguy.kubernetes/templates/metrics-server/1.8+/"
+#- name: create metrics-server
+#  shell: "kubectl  apply -f /etc/ansible/roles/geerlingguy.kubernetes/templates/metrics-server/1.8+/"
 
+- name: create heapster+influxdb+grafana
+  shell: "kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/heapster.yaml  && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/influxdb.yaml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/grafana.yaml"
