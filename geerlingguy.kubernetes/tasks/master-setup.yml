@@ -61,3 +61,7 @@
 
 - name: create heapster+influxdb+grafana
   shell: "kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/heapster.yaml  && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/influxdb.yaml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/grafana.yaml"
+
+- name: create efk
+  shell: "kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/filebeat.yaml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/elasticsearch.yml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/kibana.yml"
+
