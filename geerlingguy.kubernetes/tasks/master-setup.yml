@@ -91,3 +91,6 @@
 - name: create tiller user
   shell: kubectl create serviceaccount --namespace kube-system tiller &&  kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller && kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
   ignore_errors: true
+
+- name: token
+  shell: kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}') | grep token: > /root/k8s.txt && kubectl  cluster-info  | grep -v 'kubectl cluster-info dump' >>/root/k8s.txt
