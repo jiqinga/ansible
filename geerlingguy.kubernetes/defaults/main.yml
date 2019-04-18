@@ -31,6 +31,8 @@ kubernetes_apt_release_channel: main
 kubernetes_apt_repository: "deb http://apt.kubernetes.io/ kubernetes-xenial {{ kubernetes_apt_release_channel }}"
 kubernetes_apt_ignore_key_error: false
 
+helm_version: v2.13.1
+api_port: 8089
 kubernetes_yum_arch: x86_64
 
 # Flannel config files.

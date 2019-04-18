@@ -17,6 +17,8 @@
 - name: bootstrap | Ensure ntp packages are installed.
   shell: yum -y install ntp && systemctl stop ntpd
 
+- name: socat
+  yum: name=socat
 
 - name: bootstrap | Update time on server.
   shell: ntpdate ntp1.aliyun.com && hwclock --systohc
