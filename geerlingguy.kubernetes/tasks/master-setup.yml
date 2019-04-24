@@ -50,51 +50,51 @@
     - not kubernetes_init_stat.stat.exists
 
 
-- name: Enable the Kubernetes Web Dashboard UI (if configured).
-  command: "kubectl create -f {{ kubernetes_web_ui_manifest_file }}"
-
-- name: create dashboard_adminuser
-  shell: "kubectl apply -f {{ kubernetes_dashboard_adminuser }}"
-
-#- name: create metrics-server
-#  shell: "kubectl  apply -f /etc/ansible/roles/geerlingguy.kubernetes/templates/metrics-server/1.8+/"
-- name: start porxy
-  sehll: kubectl proxy --address='0.0.0.0' --accept-hosts='^*$' --port {{ apiport }} &
-
-- name: create rc.local
-  shell: echo "kubectl proxy --address='0.0.0.0' --accept-hosts='^*$' --port {{ api_port }} &" >>/etc/rc.local  && chmod +x /etc/rc.local
-
-- name: create heapster+influxdb+grafana
-  shell: "kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/heapster.yaml  && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/influxdb.yaml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/grafana.yaml"
-
-- name: create efk
-  shell: "kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/filebeat.yaml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/elasticsearch.yml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/kibana.yml"
-
-- name: install socat
-  yum: name=socat
-
-- name: install wget
-  yum: name=wget
-
-- name: install helm
-  shell: wget https://storage.googleapis.com/kubernetes-helm/helm-{{ helm_version }}-linux-amd64.tar.gz && tar xf helm-{{ helm_version }}-linux-amd64.tar.gz && mv linux-amd64/helm /usr/local/bin/  && rm -rf helm-{{ helm_version }}-linux-amd64.tar.gz linux-amd64
-  ignore_errors: true
-
-- name: helm init 
-  shell: helm init && helm init --client-only --stable-repo-url https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/chart && helm repo add incubator https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/charts-incubator/ && helm repo update
-  ignore_errors: true
-
-- name: install tiller
-  shell: helm init --service-account tiller --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:{{ helm_version }}  --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts &&  helm init --service-account tiller --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:{{ helm_version }} --tiller-tls-cert /etc/kubernetes/ssl/tiller001.pem --tiller-tls-key /etc/kubernetes/ssl/tiller001-key.pem --tls-ca-cert /etc/kubernetes/ssl/ca.pem --tiller-namespace kube-system --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 
-  ignore_errors: true
-
-- name: create tiller user
-  shell: kubectl create serviceaccount --namespace kube-system tiller &&  kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller && kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
-  ignore_errors: true
-
-- name: token
-  shell: kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}') | grep token: > /root/k8s.txt && kubectl  cluster-info  | grep -v 'kubectl cluster-info dump' >>/root/k8s.txt  && echo "http://{{ ubernetes_apiserver_advertise_address }}:6443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/"  >> /root/k8s.txt
-
-- name: create completion helm
-  shell: echo "source <(helm completion bash)" >> /root/.bashrc
-
+#- name: Enable the Kubernetes Web Dashboard UI (if configured).
+#  command: "kubectl create -f {{ kubernetes_web_ui_manifest_file }}"
+#
+#- name: create dashboard_adminuser
+#  shell: "kubectl apply -f {{ kubernetes_dashboard_adminuser }}"
+#
+##- name: create metrics-server
+##  shell: "kubectl  apply -f /etc/ansible/roles/geerlingguy.kubernetes/templates/metrics-server/1.8+/"
+#- name: start porxy
+#  sehll: kubectl proxy --address='0.0.0.0' --accept-hosts='^*$' --port {{ apiport }} &
+#
+#- name: create rc.local
+#  shell: echo "kubectl proxy --address='0.0.0.0' --accept-hosts='^*$' --port {{ api_port }} &" >>/etc/rc.local  && chmod +x /etc/rc.local
+#
+#- name: create heapster+influxdb+grafana
+#  shell: "kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/heapster.yaml  && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/influxdb.yaml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/heapster/grafana.yaml"
+#
+#- name: create efk
+#  shell: "kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/filebeat.yaml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/elasticsearch.yml && kubectl apply -f https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/efk/kibana.yml"
+#
+#- name: install socat
+#  yum: name=socat
+#
+#- name: install wget
+#  yum: name=wget
+#
+#- name: install helm
+#  shell: wget https://storage.googleapis.com/kubernetes-helm/helm-{{ helm_version }}-linux-amd64.tar.gz && tar xf helm-{{ helm_version }}-linux-amd64.tar.gz && mv linux-amd64/helm /usr/local/bin/  && rm -rf helm-{{ helm_version }}-linux-amd64.tar.gz linux-amd64
+#  ignore_errors: true
+#
+#- name: helm init 
+#  shell: helm init && helm init --client-only --stable-repo-url https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/chart && helm repo add incubator https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/charts-incubator/ && helm repo update
+#  ignore_errors: true
+#
+#- name: install tiller
+#  shell: helm init --service-account tiller --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:{{ helm_version }}  --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts &&  helm init --service-account tiller --upgrade -i registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:{{ helm_version }} --tiller-tls-cert /etc/kubernetes/ssl/tiller001.pem --tiller-tls-key /etc/kubernetes/ssl/tiller001-key.pem --tls-ca-cert /etc/kubernetes/ssl/ca.pem --tiller-namespace kube-system --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 
+#  ignore_errors: true
+#
+#- name: create tiller user
+#  shell: kubectl create serviceaccount --namespace kube-system tiller &&  kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller && kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+#  ignore_errors: true
+#
+#- name: token
+#  shell: kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}') | grep token: > /root/k8s.txt && kubectl  cluster-info  | grep -v 'kubectl cluster-info dump' >>/root/k8s.txt  && echo "http://{{ ubernetes_apiserver_advertise_address }}:6443/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/"  >> /root/k8s.txt
+#
+#- name: create completion helm
+#  shell: echo "source <(helm completion bash)" >> /root/.bashrc
+#

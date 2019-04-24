@@ -19,6 +19,7 @@
 
 - name: bootstrap | Update time on server.
   shell: ntpdate ntp1.aliyun.com && hwclock --systohc
+  ignore_errors: true
 
 - name: bootstrap | Restart ntpd service.
   service: "name=ntpd state=restarted"
