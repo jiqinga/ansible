@@ -5,12 +5,13 @@
   yum: "name={{ item }} state=removed"
   with_items: "{{ docker_old }}"
 
-- name: Ensure docker packages are installed.
-  yum: "name={{ item }} state=installed  update_cache=yes"
-  with_items: "{{ docker_packages }}"
    
 - name: Install docker repo.
   shell: "yum-config-manager --add-repo {{ docker_repo }}"
+ 
+- name: Ensure docker packages are installed.
+  yum: "name={{ item }} state=installed  update_cache=yes"
+  with_items: "{{ docker_packages }}"
   
 - name: Modify the docker software source for keda.
   replace:
@@ -26,8 +27,12 @@
     src: daemon.json.j2
     dest: "/etc/docker/daemon.json"
 
-- name: Ensure docker-ce are installed.
-  shell: yum -y install docker-ce
+- name: clear yum
+  shell: yum-complete-transaction --cleanup-only
+
+- name: Ensure docker-ce packages are installed.
+  yum: "name={{ item }} state=present "
+  with_items: "{{ docker_ce_packages }}"
 
 - name: Ensure docker is started and enabled at boot.
   systemd: name=docker state=started enabled=yes
