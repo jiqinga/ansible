@@ -49,8 +49,8 @@
    - {'reg': 'http://download.fedoraproject.org/pub', 'rep': "{{ epel_source_url }}"}
   when: change_epel and epel_testing_repofile_result.stat.exists
 
-- name: Update yum cache.
-  shell: yum clean all && yum makecache
-  args:
-    warn: no
-  when: change_epel
+#- name: Update yum cache.
+#  shell: yum clean all && yum makecache
+#  args:
+#    warn: no
+#  when: change_epel
