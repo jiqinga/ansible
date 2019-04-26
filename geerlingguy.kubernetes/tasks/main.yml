@@ -35,9 +35,6 @@
 - include_tasks: master-setup.yml
   when: kubernetes_role == 'master'
 
-- include_tasks: master-addon.yml
-  when: kubernetes_role == 'master'
-
 # Set up nodes.
 - name: Get the kubeadm join command from the Kubernetes master.
   command: kubeadm token create --print-join-command
@@ -55,3 +52,9 @@
 
 - include_tasks: node-setup.yml
   when: kubernetes_role == 'node'
+
+- include_tasks: master-addon.yml
+  when: kubernetes_role == 'master'
+
+- include_tasks: master-addon-k8s.yml
+  when: kubernetes_role == 'master'

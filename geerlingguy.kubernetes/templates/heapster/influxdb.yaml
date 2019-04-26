@@ -14,6 +14,7 @@ spec:
       containers:
       - name: influxdb
         image: googlecontainer/heapster-influxdb-amd64:v1.5.2
+ #       image: tutum/influxdb:latest
         volumeMounts:
         - mountPath: /data
           name: influxdb-storage
