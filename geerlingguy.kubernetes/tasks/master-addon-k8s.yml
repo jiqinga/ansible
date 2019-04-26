@@ -10,6 +10,12 @@
 - name: start k8s-proxy
   shell: find /etc/ansible/ -name k8s-proxy.sh -exec bash {} {{ api_port }} \;
 
+- name: alias
+  shell: echo "alias k='kubectl'" >>/root/.bashrc
+ 
+- name: alias kubectl get po -n kube-system
+  sehll: echo "alias kpod='kubectl get po -n kube-system'" >>/root/.bashrc
+
 - name: +x source.sh
   shell: find /etc/ansible/ -name source.sh -exec chmod +x {} \;
 
