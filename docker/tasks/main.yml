@@ -5,6 +5,8 @@
   yum: "name={{ item }} state=removed"
   with_items: "{{ docker_old }}"
 
+- name: Install yum-utils
+  yum: name=yum-utils
    
 - name: Install docker repo.
   shell: "yum-config-manager --add-repo {{ docker_repo }}"
