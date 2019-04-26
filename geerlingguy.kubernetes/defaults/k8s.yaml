@@ -3,9 +3,10 @@
   any_errors_fatal: true
   vars:
      - ipnames:
-        '182.10.1.77': 'master'
-        '182.10.1.78': 'node78'
+        '182.10.1.78': 'master'
         '182.10.1.79': 'node79'
+        '182.10.1.83': 'node83'
+        '182.10.1.84': 'node84'
   roles:
     - hostnames
     - repo-epel
@@ -15,9 +16,9 @@
   vars:
     kubernetes_allow_pods_on_master: True
     kubernetes_role: master
-    kubernetes_version_rhel_package: '1.14.0'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
-    kubernetes_apiserver_advertise_address: 182.10.1.77
-    helm_version: v2.13.1
+    kubernetes_version: '1.13'
+    kubernetes_version_rhel_package: '1.13.1'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
+    kubernetes_apiserver_advertise_address: 182.10.1.78
     api_port: 8086
   roles:
     - geerlingguy.kubernetes
@@ -25,6 +26,7 @@
 - hosts: k8s-node
   vars:
     kubernetes_role: node
-    kubernetes_version_rhel_package: '1.14.0'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
+    kubernetes_version: '1.13'
+    kubernetes_version_rhel_package: '1.13.1'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
   roles:
     - geerlingguy.kubernetes

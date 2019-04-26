@@ -1,4 +1,4 @@
-- hosts: 182.10.1.78
+- hosts: 182.10.1.79
   serial: "100%"
   any_errors_fatal: true
   vars:
@@ -12,9 +12,10 @@
     - docker
 
 
-- hosts: 182.10.1.78
+- hosts: 182.10.1.79
   vars:
     kubernetes_role: node
-    kubernetes_version_rhel_package: '1.14.0'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
+    kubernetes_version: '1.13'
+    kubernetes_version_rhel_package: '1.13.1'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
   roles:
     - geerlingguy.kubernetes
