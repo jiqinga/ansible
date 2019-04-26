@@ -10,3 +10,8 @@
 - name: start k8s-proxy
   shell: find /etc/ansible/ -name k8s-proxy.sh -exec bash {} {{ api_port }} \;
 
+- name: +x source.sh
+  shell: find /etc/ansible/ -name source.sh -exec chmod +x {} \;
+
+- name: source /root/.bashrc
+  shell: find /etc/ansible/ -name source.sh  | bash
