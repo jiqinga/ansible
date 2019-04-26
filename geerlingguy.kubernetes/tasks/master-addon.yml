@@ -24,7 +24,7 @@
 #  ignore_errors: true
 
 - name: helm init
-  shell: "helm init && helm init --client-only --stable-repo-url https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/chart "
+  shell: "helm init --client-only --stable-repo-url https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/chart "
 
 - name: add helm repo
   shell: helm repo add incubator https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/charts-incubator/ 
