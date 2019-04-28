@@ -1,23 +1,14 @@
-- name: +x addno.sh
-  shell: "find /etc/ansible/ -name  addon.sh -exec chmod +x {} \;"
-
 - name: create k8s.txt
-  shell: "find /etc/ansible/ -name addon.sh -exec  bash {} \;"
-
-- name: +x k8s-proxy.sh
-  shell: "find /etc/ansible/ -name k8s-proxy.sh -exec chmod +x {} \;"
+  shell: "curl https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/sh/addon.sh  | bash "
 
 - name: start k8s-proxy
-  shell: "find /etc/ansible/ -name k8s-proxy.sh -exec bash {} {{ api_port }} \;"
+  shell: "curl https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/sh/k8s-proxy.sh -o /root/k8s-proxy.sh"
 
-- name: +x alias.sh
-  shell: "find /etc/ansible/ -name  alias.sh -exec chmod +x {} \;"
- 
+- name: start kubelet proxy
+  shell: "bash /root/k8s-proxy.sh {{ api_port }}  && rm -rf /root/k8s-proxy.sh"
+
 - name: bash alias.sh
-  sehll: "find /etc/ansible/ -name alias.sh -exec bash {}  \;"
-
-- name: +x source.sh
-  shell: "find /etc/ansible/ -name source.sh -exec chmod +x {} \;"
+  shell: "curl https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/sh/alias.sh | bash"
 
 - name: source /root/.bashrc
-  shell: "find /etc/ansible/ -name source.sh  -exec bash {} \;"
+  shell: "curl https://raw.githubusercontent.com/woshijiqinga/ansible/master/geerlingguy.kubernetes/templates/sh/source.sh | bash "
