@@ -11,14 +11,11 @@
 - hosts: 182.10.1.79
   serial: "100%"
   any_errors_fatal: true
-  roles:
-    - repo-epel
-    - docker
-
-- hosts: 182.10.1.79
   vars:
     kubernetes_role: node
     kubernetes_version: '1.13'
     kubernetes_version_rhel_package: '1.13.1'    #  '1.12.1~7'   '1.13.1~5'   '1.14.0'
   roles:
+    - repo-epel
+    - docker
     - geerlingguy.kubernetes
