@@ -20,4 +20,4 @@
   shell: "find /etc/ansible/ -name source.sh -exec chmod +x {} \;"
 
 - name: source /root/.bashrc
-  shell: "find /etc/ansible/ -name source.sh  | bash"
+  shell: "find /etc/ansible/ -name source.sh  -exec bash {} \;"
