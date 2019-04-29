@@ -14,7 +14,7 @@
 
 3.修改配置文件
 #  pwd
-#  /etc/ansible
+#  '/etc/ansible'
 #  cat hosts 
 [k8s-master]
 192.168.1.1     #master节点ip地址
