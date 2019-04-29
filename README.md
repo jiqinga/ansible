@@ -1,6 +1,6 @@
 ```
-说明： 使用ansible部署k8s整个过程约为16分钟左右（包含下载镜像时间），其中Initialize Kubernetes master with kubeadm init任务需要下载k8s镜像
-需要十分钟左右，具体时间根据网速变化。
+说明： 使用ansible部署k8s整个过程约为16分钟左右（包含下载镜像时间），其中Initialize Kubernetes master with kubeadm init
+任务需要下载k8s镜像需要十分钟左右，具体时间根据网速变化。
 
 1.创建虚拟机（至少一台，超过一台无限制）
 实验环境：  （所做操作均在master节点，确保各节点之间能够ssh，各节点都要联网）
