@@ -1,0 +1,44 @@
+- hosts: master
+  serial: "100%"
+  any_errors_fatal: true
+#  vars:
+#     - ipnames:
+#        '182.10.1.162': 'images'
+#  roles:
+#    - hostnames
+
+#- hosts: docker-swarm
+  vars:
+     - ipnames:
+        '182.10.1.162': 'master1'
+        '182.10.1.163': 'master2'
+        '182.10.1.164': 'master3'
+        '182.10.1.165': 'node1'
+        '182.10.1.166': 'node2'
+        '182.10.1.167': 'node3'
+        '182.10.1.168': 'node4'
+        '182.10.1.169': 'node5'
+  roles:
+    - hostnames
+
+- hosts: master
+  vars:
+    swarm_node: 'master'
+    swarm_master: '182.10.1.162'
+  roles:
+    - docker-swarm
+
+- hosts: master2
+  vars:
+    swarm_node: 'master2'
+    swarm_master: '182.10.1.162'
+  roles:
+    - docker-swarm
+
+- hosts: node
+  vars:
+    swarm_node: 'node'
+    swarm_master: '182.10.1.162'
+  roles:
+    - docker-swarm
+
